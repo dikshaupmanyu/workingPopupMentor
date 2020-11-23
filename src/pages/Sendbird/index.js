@@ -7,11 +7,12 @@ import Sidebar from '../../common/Sidebar';
 //import { AnyResource, AnyRole, Allow, Deny} from 'stream-chat';
 import 'stream-chat-react/dist/css/index.css';
 
-//const chatClient = new StreamChat('g8yfg5w2yd32');
 const storageData = localStorage.getItem('allTokenData');
+if(storageData){
 const parsedStorageDatas = JSON.parse(storageData);
 var usernamed = parsedStorageDatas.uname;
-//alert(usernamed);
+ 
+}
 
 
 class Sendbird extends Component {
