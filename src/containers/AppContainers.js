@@ -6,6 +6,7 @@ import Landing from '../pages/Landing';
 import Home from '../pages/Home';
 import Tip from '../pages/Tip';
 import ChatManage from '../pages/ChatManage';
+import Sendbird from '../pages/Sendbird';
 // import Yourroom from './components/Yourroom';
 // import Invite from './components/Invite';
 import Room from '../pages/Room';
@@ -47,6 +48,7 @@ class AppContainer extends Component {
                             <Route exact path="/tip" component={Tip} {...this.props}/>
                             <Route exact path="/room" component={Room} {...this.props}/>
                             <Route exact path="/chatmanage" component={ChatManage} {...this.props}/>
+                            <Route exact path="/sendbird" component={Sendbird} {...this.props}/>
                             <Route exact path="/">
                                 {this.state.tokendata ? 
                                     <Redirect to="/home" />

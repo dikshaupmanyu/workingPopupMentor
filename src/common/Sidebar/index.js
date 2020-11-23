@@ -42,6 +42,11 @@ class Sidebar extends Component {
                                 </Link>
                             </li>
                             <li style={{padding: "10px", display: "inherit"}}>
+                                <Link to={`/sendbird`}>
+                                    <span style={{color: "white"}}><b>Sendbird Chat</b></span>
+                                </Link>
+                            </li>
+                            <li style={{padding: "10px", display: "inherit"}}>
                                 <a onClick={this.logoutUser}>
                                     <span style={{color: "white"}}><b>Logout</b></span>
                                 </a>
