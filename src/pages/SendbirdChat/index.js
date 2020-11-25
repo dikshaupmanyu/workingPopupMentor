@@ -4,7 +4,10 @@ import axios from 'axios';
 import {BASE_URL} from '../../constants/constants';
 import { SendBirdAction } from './SendBirdAction';
 import { SendBirdConnection } from './SendBirdConnection';
+import { timestampToTime } from './utils';
 // import { Chat } from './Chat';
+
+const screenHeight = window.innerHeight;
 
 const sb = new SendBirdAction();
 // const chat = new Chat();
@@ -16,13 +19,23 @@ class SendbirdChat extends Component {
             isLoading: true,
             user: {},
             tokendata: "",
-            channelList: []
+            channelList: [],
+            messageList: [],
+            storageData: {},
         }
     }
 
     componentDidMount() {
       // this._getOpenChannelList(true);
-      this._connectSendbird();
+      const sData = localStorage.getItem('allTokenData');
+      if (sData !== null) {
+        this.setState({
+            storageData: JSON.parse(sData),
+        }, () => {
+          console.log('+++++++++++++++++++++++++++++++++', this.state.storageData.tokendata);
+          this._connectSendbird();
+        })
+      }
     }
 
     _connectSendbird = () => {
@@ -47,8 +60,11 @@ class SendbirdChat extends Component {
           console.log("|||||||||||||||", openChannelList[2]);
           SendBirdAction.getInstance()
           .getMessageList(openChannelList[2])
-          .then(messageList => {
-            console.log('++++++++++++++++messageList++++++++++++++++++', messageList);
+          .then(msgList => {
+            console.log('++++++++++++++++msgList++++++++++++++++++', msgList);
+            this.setState({
+              messageList: msgList
+            })
           })
           .catch(error => {
             
@@ -73,32 +89,56 @@ class SendbirdChat extends Component {
 
     render() {
         return (
-            <div className="container-fluid" style={{background: "#263b66"}}>  
-               <div className="row" style={{background: "#263b66"}}>
-                    <div className="col-md-3">
+            <div className="container-fluid">  
+               <div className="row">
+                    <div className="col-md-2">
                         <Sidebar history={this.props.history} />
                     </div>
                     <div className="col-md-9 mx-auto">
-                      <div class="chat-main-root">
+                      <div class="chat-main-root" style={{border: '0.5px solid #898989'}}>
                         <div class="chat-main">
-                          <div class="chat-body">
-                            <div id={messageId}>
+                          <div class="chat-body" style={{height: `${screenHeight * 0.85}px`}}>
+                            {this.state.messageList.length > 0 && this.state.messageList.map((message, key) => {
+                              return (
+                                <div id={message.messageId} class="chat-message" data-req-id={message.messageId}>
+                                  <div class="message-content">
+                                    <div class="message-nickname">
+                                      { message._sender.nickname} : 
+                                    </div>
+                                    {message.name &&
+                                      <div class="message-content is-file">
+                                        { message.name}
+                                      </div>
+                                    }
+                                    {message.message &&
+                                      <div class="message-content">
+                                        {` ${message.message}`}
+                                      </div>
+                                    }
+                                    <div class="time">
+                                      {timestampToTime(message.createdAt)}
+                                    </div>
+                                    {message.plainUrl &&
+                                      <div class="image-content">
+                                        <img class="image-render" src={`${message.plainUrl}?auth=e8BC7PM8Mrl5As6JnnVv9ARgw4cL8MxhAKcwfkMx0zqDNvm4EOEXVhEJ11LDpgK-uXs1ppYINc4Dn0ZXfuUBCg`} />
+                                      </div>
+                                    }
+                                  </div>
+                                </div>
+                              )
+                            })}
+                          </div>
 
+                          <div class="chat-input">
+                            <div class="typing-field"></div>
+                            <label class="input-file">
+                              <input type="file" id="attach_file_id"/>
+                            </label>
+                            <div class="input-text">
+                              <textarea class="input-text-area" placeholder="Write a chat..."></textarea>
                             </div>
                           </div>
                         </div>
-                        {/* {this.state.channelList.length > 0 && this.state.channelList.map((channel, index) => {
-                          return(
-                            <div id={channel.coverUrl} key={index} class="channel-item" onClick={() => this.goToChannel(channel)}>
-                              <div class="item-title">
-                                {channel.name}
-                              </div>
-                              <div class="item-desc">
-                                Created on {channel.createdAt}
-                              </div>
-                            </div>
-                          )
-                        })} */}
                       </div>
                     </div>
                 </div>
