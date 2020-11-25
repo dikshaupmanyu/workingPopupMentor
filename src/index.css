@@ -1,192 +1,37 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  fontSize: 14px;
+.chat-main-root {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.chat-main-root>.chat-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.make{
-background-color: lightgrey;
-    color: black;
-    padding: 10px;
+.chat-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 0;
 }
 
-.active-cyan-4 input.form-control[type=text]:focus:not([readonly]) {
-  border-bottom: 1px solid #4dd0e1;
-  box-shadow: 0 1px 0 0 #4dd0e1;
-}
-
-.active-cyan-4 input.form-control[type=text] {
-  border-bottom: 1px solid #4dd0e1;
-  box-shadow: 0 1px 0 0 #4dd0e1;
-}
-
-table td, .table th {
-  border-top: 0px solid #dee2e6;
-}
-
-.text-muted {
-   color: #000!important;
-}
-
-.table td, .table th {
-    border-top: 0px solid #dee2e6;
-}
-
-.card {
-    margin-bottom: 5px;
-}
-
-.table td, .table th {
-    padding: 0.50rem !important;
-}
-
-.table td, .table th {
-    padding: .50rem !important;
-    vertical-align: top;
-    border-top: 0px solid #dee2e6 !important;
-}
-
-.red{
-  color: red !important;
-}
-
-.green{
-  color: #228B22 !important;
-}
-
-.sticky {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  background-color: yellow;
-}
-
-.tableone{
-  width: 50%;
-}
-
-.tabletwo{
-  width: 25%;
-}
-
-.tablefour{
-  width: 25%;
-}
-
-.nname{
-  width: 50%;
-}
-
-.css-2b097c-container{
-  width: 77%;
-  margin-left: 15px;
-}
-
-/*.css-g1d714-ValueContainer{
-  width: 400px;
-}*/
-
-/*.custome{
-  margin-left: 30px;
-}*/
-
-.heading{
-    margin-top: 8px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
-
-.hclass{
-  color: black;
-}
-
-.card-body{
-   padding-bottom: 0px;
-}
-
-.card-header{
-  padding-top: 6px !important;
-  padding-bottom: 5px !important;
-}
-
-.comment{
-  width: 480px;
-}
-
-.tip{
-  margin-right: 8px;
-}
-
-.change{
-  margin-left: 8px !important;
-}
-
-.red{
- color: red !important;
-}
-
-.green{
- color: #228B22 !important;
-}
-.str-chat__channel-list-team__main{
-  display: none;
-}
-.str-chat__input-fileupload{
-  display: none;
-}
-.widget .panel-body { padding:0px; }
-.widget .list-group { margin-bottom: 0; }
-.widget .panel-title { display:inline }
-.widget .label-info { float: right; }
-.widget li.list-group-item {border-radius: 0;border: 0;border-top: 1px solid #ddd;}
-.widget li.list-group-item:hover { background-color: rgba(86,61,124,.1); }
-.widget .mic-info { color: #666666;font-size: 11px; }
-.widget .action { margin-top:5px; }
-.widget .comment-text { font-size: 12px; }
-.widget .btn-block { border-top-left-radius:0px;border-top-right-radius:0px; }
- 
-.str-chat__message-simple__actions__action .str-chat__message-simple__actions__action--options{
-  display: none !important;
-}
-
-.Buy{
- color:white;
- background-color: green;
- border: 8px solid green;
- border-radius: 5px;
-}
-
-.Sell{
- color:white;
- background-color: #dc3545;
- border: 8px solid #dc3545;
- border-radius: 5px;
-}
-
-.Avoid{
- color:white;
- background-color: black;
- border: 8px solid black;
- border-radius: 5px;
-}
-
-.suggestion{
- margin-top: 12px;
-}
-
-.card.text-white.mb-3.testtoo{
-margin-bottom: 25px !important;
-}
-
-.str-chat__header-livestream-left{
-  color: black;
+.chat-message {
+  display: block;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
+  margin-bottom: 8px;
+  border: 1px solid transparent;
 }

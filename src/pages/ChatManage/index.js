@@ -4,7 +4,7 @@ import { StreamChat } from 'stream-chat';
 import { Chat, Channel, ChannelList, Window } from 'stream-chat-react';
 import { ChannelHeader, MessageList } from 'stream-chat-react';
 import { MessageInput, Thread } from 'stream-chat-react';
-//import { AnyResource, AnyRole, Allow, Deny} from 'stream-chat';
+import { AnyResource, AnyRole, Allow, Deny} from 'stream-chat';
 import 'stream-chat-react/dist/css/index.css';
 
 const chatClient = new StreamChat('g8yfg5w2yd32');
@@ -34,7 +34,7 @@ if(storageData){
 
     const sort = { last_message_at: -1 };
 
-  //   const channels = chatClient.queryChannels('messaging', 'godevs' , filters, sort );
+     const channels = chatClient.queryChannels('messaging', 'godevs' , filters, sort );
 
    // console.log(channels);
 
