@@ -97,7 +97,7 @@ class SendbirdChat extends Component {
                     <div className="col-md-9 mx-auto">
                       <div class="chat-main-root" style={{border: '0.5px solid #898989'}}>
                         <div class="chat-main">
-                          <div class="chat-body" style={{height: `${screenHeight * 0.85}px`}}>
+                          <div class="chat-body" style={{height: `${screenHeight * 1.99}px`}}>
                             {this.state.messageList.length > 0 && this.state.messageList.map((message, key) => {
                               return (
                                 <div id={message.messageId} class="chat-message" data-req-id={message.messageId}>
@@ -132,7 +132,7 @@ class SendbirdChat extends Component {
                           <div class="chat-input">
                             <div class="typing-field"></div>
                             <label class="input-file">
-                              <input type="file" id="attach_file_id"/>
+                              <input type="file" id="attach_file_id" style={{display : "none"}}/>
                             </label>
                             <div class="input-text">
                               <textarea class="input-text-area" placeholder="Write a chat..."></textarea>
