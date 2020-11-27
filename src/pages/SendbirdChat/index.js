@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Sidebar from '../../common/Sidebar';
 import axios from 'axios';
-import {BASE_URL} from '../../constants/constants';
 import { SendBirdAction } from './SendBirdAction';
 import { SendBirdConnection } from './SendBirdConnection';
 import { timestampToTime } from './utils';
