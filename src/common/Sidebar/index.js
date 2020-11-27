@@ -38,7 +38,7 @@ class Sidebar extends Component {
                             </li>
                             <li style={{padding: "10px", display: "inherit"}}>
                                 <Link to={`/room`}>
-                                    <span style={{color: "white"}}><b>Chat Managment</b></span>
+                                    <span style={{color: "white"}}><b>Sendbird Chat</b></span>
                                 </Link>
                             </li>
                             <li style={{padding: "10px", display: "inherit"}}>
@@ -46,11 +46,7 @@ class Sidebar extends Component {
                                     <span style={{color: "white"}}><b>Logout</b></span>
                                 </a>
                             </li>
-                            <li style={{padding: "10px", display: "inherit"}}>
-                                <Link to={`/sendbirdchat`}>
-                                    <span style={{color: "white"}}><b>Sendbird Chat</b></span>
-                                </Link>
-                            </li>
+                           
                         </ul>
                     </div>
                 </div>

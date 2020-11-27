@@ -5,7 +5,7 @@ import {BASE_URL} from '../../constants/constants';
 import { SendBirdAction } from './SendBirdAction';
 import { SendBirdConnection } from './SendBirdConnection';
 import { timestampToTime } from './utils';
-// import { Chat } from './Chat';
+import ImageUploader from 'react-images-upload';
 
 const screenHeight = window.innerHeight;
 
@@ -14,37 +14,52 @@ const sb = new SendBirdAction();
 
 class SendbirdChat extends Component {
     constructor(props) {
-        super(props)
-        this.state = {
-            isLoading: true,
-            user: {},
-            tokendata: "",
-            channelList: [],
-            messageList: [],
-            storageData: {},
-        }
+      super(props)
+      this.state = {
+        isLoading: true,
+        user: {},
+        tokendata: "",
+        channelList: [],
+        messageList: [],
+        storageData: {},
+        message: '',
+        channel: '',
+        scrollTop: 0
+      }
+      this.onImageDrop = this.onImageDrop.bind(this);
+      this.myRef = React.createRef();
+    }
+
+    onScroll = () => {
+      this.messagesEnd = null;
+      const scrollTop = this.myRef.current.scrollTop;
+      if (scrollTop < 10) {
+        this._connectSendbird();
+      }
     }
 
     componentDidMount() {
-      // this._getOpenChannelList(true);
       const sData = localStorage.getItem('allTokenData');
       if (sData !== null) {
         this.setState({
             storageData: JSON.parse(sData),
         }, () => {
-          console.log('+++++++++++++++++++++++++++++++++', this.state.storageData.tokendata);
           this._connectSendbird();
         })
       }
     }
 
+    componentDidUpdate () {
+      this.scrollToBottom();
+    }
+
+    scrollToBottom = () => {
+      this.messagesEnd.scrollIntoView({block: "end"})
+    }
+
     _connectSendbird = () => {
-      sb.connect('diksha', 'diksha').then(user => {
-        console.log('======================================', user);
-        console.log(user);
+      sb.connect(this.state.storageData.uname, this.state.storageData.uname).then(user => {
         this._getOpenChannelList();
-      }).catch(() => {
-        
       });
     }
 
@@ -57,47 +72,77 @@ class SendbirdChat extends Component {
       SendBirdAction.getInstance()
         .getOpenChannelList(isInit, urlKeyword)
         .then(openChannelList => {
-          console.log("|||||||||||||||", openChannelList[2]);
-          SendBirdAction.getInstance()
-          .getMessageList(openChannelList[2])
-          .then(msgList => {
-            console.log('++++++++++++++++msgList++++++++++++++++++', msgList);
-            this.setState({
-              messageList: msgList
-            })
+          this.setState({
+            channel: openChannelList[2]
+          }, () => {
+            SendBirdAction.getInstance()
+            .getMessageList(openChannelList[2])
+            .then(msgList => {
+              console.log('++++++++msgList+++++++', msgList);
+              this.setState({
+                messageList: [...msgList, ...this.state.messageList],
+              })
+            });
           })
-          .catch(error => {
-            
-          });
-        })
-        .catch(error => {
-
         });
     }
 
     goToChannel = channel => {
-      console.log('++++++++++++++', channel);
       SendBirdAction.getInstance()
       .getMessageList(channel)
       .then(messageList => {
         console.log('++++++++++++++++messageList++++++++++++++++++', messageList);
-      })
-      .catch(error => {
-        
       });
+    }
+
+    handleMessageChange = event => {
+      this.setState({
+        message: event.target.value
+      })
+    }
+
+    sendMessage = () => {
+      SendBirdAction.getInstance().sendUserMessage({
+        channel: this.state.channel,
+        message: this.state.message,
+        handler: (messageData, error) => {
+          this.setState({
+            messageList: [...this.state.messageList, messageData],
+            message: ''
+          })
+        }
+      });
+    }
+
+    onImageDrop(picture) {
+      const sendFile = picture[0];
+      if (sendFile) {
+        const tempMessage = SendBirdAction.getInstance().sendFileMessage({
+          channel: this.state.channel,
+          file: sendFile,
+          handler: (message, error) => {
+            this.setState({
+              messageList: [...this.state.messageList, message]
+            })
+          }
+        });
+      }
     }
 
     render() {
         return (
-            <div className="container-fluid">  
-               <div className="row">
-                    <div className="col-md-2">
+            <div className="container-fluid" style={{background: "#263b66" , color : "#fff"}}>  
+               <div className="row" style={{background: "#263b66"}}>
+                    <div className="col-md-3">
                         <Sidebar history={this.props.history} />
                     </div>
-                    <div className="col-md-9 mx-auto">
+                    <div className="col-md-9 mx-auto" style={{height : "650px"}}>
                       <div class="chat-main-root" style={{border: '0.5px solid #898989'}}>
                         <div class="chat-main">
-                          <div class="chat-body" style={{height: `${screenHeight * 0.85}px`}}>
+                          <div class="chat-body" 
+                            ref={this.myRef}
+                            onScroll={this.onScroll}
+                          >
                             {this.state.messageList.length > 0 && this.state.messageList.map((message, key) => {
                               return (
                                 <div id={message.messageId} class="chat-message" data-req-id={message.messageId}>
@@ -127,15 +172,31 @@ class SendbirdChat extends Component {
                                 </div>
                               )
                             })}
+                            <div style={{ float:"left", clear: "both" }}
+                                ref={(el) => { this.messagesEnd = el; }}>
+                            </div>
                           </div>
 
                           <div class="chat-input">
                             <div class="typing-field"></div>
                             <label class="input-file">
-                              <input type="file" id="attach_file_id"/>
+                              <ImageUploader
+                                withIcon={true}
+                                withLabel={false}
+                                onChange={this.onImageDrop}
+                                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                                maxFileSize={5242880}
+                                singleImage={true}
+                              />
                             </label>
                             <div class="input-text">
-                              <textarea class="input-text-area" placeholder="Write a chat..."></textarea>
+                              <textarea 
+                                class="input-text-area" 
+                                placeholder="Write a chat..." 
+                                value={this.state.message} 
+                                onChange={this.handleMessageChange}
+                              />
+                              <button onClick={this.sendMessage}>Send</button>
                             </div>
                           </div>
                         </div>
