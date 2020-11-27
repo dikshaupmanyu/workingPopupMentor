@@ -89,15 +89,15 @@ class SendbirdChat extends Component {
 
     render() {
         return (
-            <div className="container-fluid">  
-               <div className="row">
-                    <div className="col-md-2">
+            <div className="container-fluid" style={{background: "#263b66" , color : "#fff"}}>  
+               <div className="row" style={{background: "#263b66"}}>
+                    <div className="col-md-3">
                         <Sidebar history={this.props.history} />
                     </div>
-                    <div className="col-md-9 mx-auto">
+                    <div className="col-md-9 mx-auto" style={{height : "650px"}}>
                       <div class="chat-main-root" style={{border: '0.5px solid #898989'}}>
                         <div class="chat-main">
-                          <div class="chat-body" style={{height: `${screenHeight * 1.99}px`}}>
+                          <div class="chat-body">
                             {this.state.messageList.length > 0 && this.state.messageList.map((message, key) => {
                               return (
                                 <div id={message.messageId} class="chat-message" data-req-id={message.messageId}>
