@@ -129,82 +129,82 @@ class SendbirdChat extends Component {
     }
 
     render() {
-        return (
-            <div className="container-fluid" style={{background: "#263b66" , color : "#fff"}}>  
-               <div className="row" style={{background: "#263b66"}}>
-                    <div className="col-md-3">
-                        <Sidebar history={this.props.history} />
-                    </div>
-                    <div className="col-md-9 mx-auto" style={{height : "650px"}}>
-                      <div class="chat-main-root" style={{border: '0.5px solid #898989'}}>
-                        <div class="chat-main">
-                          <div class="chat-body" 
-                            ref={this.myRef}
-                            onScroll={this.onScroll}
-                          >
-                            {this.state.messageList.length > 0 && this.state.messageList.map((message, key) => {
-                              return (
-                                <div id={message.messageId} class="chat-message" data-req-id={message.messageId}>
-                                  <div class="message-content">
-                                    <div class="message-nickname">
-                                      { message._sender.nickname} : 
-                                    </div>
-                                    {message.name &&
-                                      <div class="message-content is-file">
-                                        { message.name}
-                                      </div>
-                                    }
-                                    {message.message &&
-                                      <div class="message-content">
-                                        {` ${message.message}`}
-                                      </div>
-                                    }
-                                    <div class="time">
-                                      {timestampToTime(message.createdAt)}
-                                    </div>
-                                    {message.plainUrl &&
-                                      <div class="image-content">
-                                        <img class="image-render" src={`${message.plainUrl}?auth=e8BC7PM8Mrl5As6JnnVv9ARgw4cL8MxhAKcwfkMx0zqDNvm4EOEXVhEJ11LDpgK-uXs1ppYINc4Dn0ZXfuUBCg`} />
-                                      </div>
-                                    }
+      return (
+          <div className="container-fluid" style={{background: "#263b66" , color : "#fff"}}>  
+             <div className="row" style={{background: "#263b66"}}>
+                  <div className="col-md-3">
+                      <Sidebar history={this.props.history} />
+                  </div>
+                  <div className="col-md-9 mx-auto" style={{height : "650px"}}>
+                    <div class="chat-main-root" style={{border: '0.5px solid #898989'}}>
+                      <div class="chat-main">
+                        <div class="chat-body" 
+                          ref={this.myRef}
+                          onScroll={this.onScroll}
+                        >
+                          {this.state.messageList.length > 0 && this.state.messageList.map((message, key) => {
+                            return (
+                              <div id={message.messageId} class="chat-message" data-req-id={message.messageId}>
+                                <div class="message-content">
+                                  <div class="message-nickname">
+                                    { message._sender.nickname} : 
                                   </div>
+                                  {message.name &&
+                                    <div class="message-content is-file">
+                                      { message.name}
+                                    </div>
+                                  }
+                                  {message.message &&
+                                    <div class="message-content">
+                                      {` ${message.message}`}
+                                    </div>
+                                  }
+                                  <div class="time">
+                                    {timestampToTime(message.createdAt)}
+                                  </div>
+                                  {message.plainUrl &&
+                                    <div class="image-content">
+                                      <img class="image-render" src={`${message.plainUrl}?auth=e8BC7PM8Mrl5As6JnnVv9ARgw4cL8MxhAKcwfkMx0zqDNvm4EOEXVhEJ11LDpgK-uXs1ppYINc4Dn0ZXfuUBCg`} />
+                                    </div>
+                                  }
                                 </div>
-                              )
-                            })}
-                            <div style={{ float:"left", clear: "both" }}
-                                ref={(el) => { this.messagesEnd = el; }}>
-                            </div>
+                              </div>
+                            )
+                          })}
+                          <div style={{ float:"left", clear: "both" }}
+                              ref={(el) => { this.messagesEnd = el; }}>
                           </div>
+                        </div>
 
-                          <div class="chat-input">
-                            <div class="typing-field"></div>
-                            <label class="input-file">
-                              <ImageUploader
-                                withIcon={true}
-                                withLabel={false}
-                                onChange={this.onImageDrop}
-                                imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                                maxFileSize={5242880}
-                                singleImage={true}
-                              />
-                            </label>
-                            <div class="input-text">
-                              <textarea 
-                                class="input-text-area" 
-                                placeholder="Write a chat..." 
-                                value={this.state.message} 
-                                onChange={this.handleMessageChange}
-                              />
-                              <button onClick={this.sendMessage}>Send</button>
-                            </div>
+                        <div class="chat-input">
+                          <div class="typing-field"></div>
+                          <label class="input-file">
+                            <ImageUploader
+                              withIcon={true}
+                              withLabel={false}
+                              onChange={this.onImageDrop}
+                              imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                              maxFileSize={5242880}
+                              singleImage={true}
+                            />
+                          </label>
+                          <div class="input-text">
+                            <textarea 
+                              class="input-text-area" 
+                              placeholder="Write a chat..." 
+                              value={this.state.message} 
+                              onChange={this.handleMessageChange}
+                            />
+                            <button onClick={this.sendMessage}>Send</button>
                           </div>
                         </div>
                       </div>
                     </div>
-                </div>
-            </div>
-        )
-    }
+                  </div>
+              </div>
+          </div>
+      )
+  }
 }
 
 export default SendbirdChat;
