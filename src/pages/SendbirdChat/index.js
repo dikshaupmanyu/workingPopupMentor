@@ -164,7 +164,7 @@ class SendbirdChat extends Component {
                                   </div>
                                   {message.plainUrl &&
                                     <div class="image-content">
-                                      <img class="image-render" src={`${message.plainUrl}?auth=e8BC7PM8Mrl5As6JnnVv9ARgw4cL8MxhAKcwfkMx0zqDNvm4EOEXVhEJ11LDpgK-uXs1ppYINc4Dn0ZXfuUBCg`} />
+                                      <img class="image-render" src={message.url} />
                                     </div>
                                   }
                                 </div>

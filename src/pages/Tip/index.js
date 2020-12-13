@@ -93,21 +93,22 @@ class Tip extends Component {
     formdata.append("exitPoint", this.state.setExit);
     formdata.append("stopPoint", this.state.setStop);
     formdata.append("stockName", this.state.stockName);
+    formdata.append("stockSuggestion", this.state.stockSuggestion);
 
-    if(this.state.setEntry < this.state. setExit) {
+    // if(this.state.setEntry < this.state. setExit) {
 
-        //  alert("Buy");
+    //     //  alert("Buy");
 
-      formdata.append("stockSuggestion", "Buy");
+    //   formdata.append("stockSuggestion", "Buy");
 
-    } else {
+    // } else {
 
-       //  alert("Sell");
+    //    //  alert("Sell");
 
-      formdata.append("stockSuggestion", "Sell");
+    //   formdata.append("stockSuggestion", "Sell");
 
   
-    } 
+    // } 
 
    
     formdata.append("status", "Approved");
