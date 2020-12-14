@@ -86,14 +86,6 @@ class SendbirdChat extends Component {
         });
     }
 
-    goToChannel = channel => {
-      SendBirdAction.getInstance()
-      .getMessageList(channel)
-      .then(messageList => {
-        console.log('++++++++++++++++messageList++++++++++++++++++', messageList);
-      });
-    }
-
     handleMessageChange = event => {
       this.setState({
         message: event.target.value
@@ -104,9 +96,10 @@ class SendbirdChat extends Component {
       SendBirdAction.getInstance().sendUserMessage({
         channel: this.state.channel,
         message: this.state.message,
-        handler: (messageData, error) => {
+        handler: (message, error) => {
+          console.log(message);
           this.setState({
-            messageList: [...this.state.messageList, messageData],
+            messageList: [...this.state.messageList, message],
             message: ''
           })
         }
